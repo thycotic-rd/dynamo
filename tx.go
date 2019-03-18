@@ -246,7 +246,7 @@ func (tx *WriteTx) RunWithContext(ctx aws.Context) error {
 		return err
 	}
 	err = retry(ctx, func() error {
-		out, err := tx.db.client.TransactWriteItems(input)
+		out, err := tx.db.client.TransactWriteItemsWithContext(ctx, input)
 		if tx.cc != nil && out != nil {
 			for _, cc := range out.ConsumedCapacity {
 				addConsumedCapacity(tx.cc, cc)
